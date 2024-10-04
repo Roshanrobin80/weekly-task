@@ -81,6 +81,33 @@ def view_usr():
     for i in user:
         print("{:<10}{:<15}{:<15}{:<15}".format(i['id'],i['name'],i['email'],i['phone']))
 
+def buy_ph():
+    print('PHONE DETAILS')
+    print("{:<5}{:<15}{:<15}{:<15}".format('ID','MODEL NAME','PRICE','STOCK'))
+    print('_'*40)
+    for i in lib:
+        print("{:<5}{:<15}{:<15}{:<15}".format(i['id'],i['name'],i['price'],i['stock']))
+        id=int(input('enter the id : '))
+        if i['id']==buy_ph:
+            if i['stock']>0:
+                i['stock']-=1
+            # ---------------
+            u['orders'].append(buy_ph)
+            # ---------------
+            f=1
+            amt=int(input('enter the amount needed : '))
+            ttl=i['price']*amt
+            print('Total Bill amount is : ',ttl)
+        else:
+            print('out of stock')   
+    if f==0:
+        print('no id availible')
+
+def view_order():
+     for i in user:
+        print(f"Name : {i['name']} And Orders : {i['orders']}")   
+
+
 user=[{'id': 1000, 'name': 'Roshan', 'email': 'r@','phone': 920712, 'password': 'qwer','book':[1,2]}]
 lib=[{'id': 1, 'name': 'vivo t2', 'price': 20000, 'stock': 7},{'id': 2, 'name': 'redmi 7a', 'price': 140000, 'stock': 4}]
 while True:
@@ -126,10 +153,18 @@ while True:
                     1.view phone
                     2.buy phone
                     3.view order
-                    7.logout''')
+                    4.logout''')
                 c1=int(input('enter your choice : '))
                 if c1==1:
                     view_ph()
+                elif c1==2:
+                    buy_ph()
+                elif c1==3:
+                    view_order()
+                elif c1==4:
+                    break
+                else:
+                    print('invalid choice')
                     
     elif c==3:
         break
