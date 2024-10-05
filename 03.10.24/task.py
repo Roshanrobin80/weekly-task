@@ -81,25 +81,26 @@ def view_usr():
     for i in user:
         print("{:<10}{:<15}{:<15}{:<15}".format(i['id'],i['name'],i['email'],i['phone']))
 
-def buy_ph():
+def buy_ph(u):
     print('PHONE DETAILS')
     print("{:<5}{:<15}{:<15}{:<15}".format('ID','MODEL NAME','PRICE','STOCK'))
     print('_'*40)
     for i in lib:
         print("{:<5}{:<15}{:<15}{:<15}".format(i['id'],i['name'],i['price'],i['stock']))
-        id=int(input('enter the id : '))
-        if i['id']==buy_ph:
-            if i['stock']>0:
-                i['stock']-=1
+    id=int(input('enter the id : '))
+    f=0
+    if i['id']==id:
+        if i['stock']>0:
+            i['stock']-=1
             # ---------------
-            u['orders'].append(buy_ph)
+        u['book'].append(id)
             # ---------------
-            f=1
-            amt=int(input('enter the amount needed : '))
-            ttl=i['price']*amt
-            print('Total Bill amount is : ',ttl)
-        else:
-            print('out of stock')   
+        f=1
+        amt=int(input('enter the amount needed : '))
+        ttl=i['price']*amt
+        print('Total Bill amount is : ',ttl)
+    else:
+        print('out of stock')   
     if f==0:
         print('no id availible')
 
