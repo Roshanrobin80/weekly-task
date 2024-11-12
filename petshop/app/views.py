@@ -1,42 +1,92 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from .models import *
-from . import views
-import os
-from django.contrib.auth.models import User
+from django.contrib.auth.models import *
 from django.contrib import messages
+from .models import *
+import os
 
 
 # Create your views here.
 
 def shop_login(req):
-    if 'shop' in req.session:
+    if 'pets' in req.session:
         return redirect(shop_home)
-    if 'user' in req.session:
-        return redirect(user_home)
     if req.method=='POST':
         uname=req.POST['uname']
-        password=req.POST['pswd']
+        password=req.POST['password']
         data=authenticate(username=uname,password=password)
         if data:
-            if data.is_superuser:
-                login(req,data)
-                req.session['shop']=uname
-                return redirect(shop_home)
-            else:
-                login(req,data)
-                req.session['user']=uname
-                return redirect(user_home)
+            login(req,data)
+            req.session['pets']=uname   #create session
+            return redirect(shop_home)
         else:
-            messages.warning(req,"invalid username or password")
-            return redirect(shop_login)
+            messages.warning(req,"please check your username or password")
+            return render(req,'login.html')
+    
     else:
         return render(req,'login.html')
     
-def shop_logout(req):
-    req.session.flush()
+def main_logout(req):
+    req.session.flush()          #delete session
     logout(req)
     return redirect(shop_login)
+
+def shop_home(req):
+    if 'pets' in req.session:
+        data=Pets.objects.all()
+        return render(req,'shop/home.html',{'pets':data})
+    else:
+        return redirect(shop_login)
+
+def add_pet(req):
+    if 'pets' in req.session:
+        if req.method=='POST':
+            pet_id=req.POST['pet_id']
+            pet_type=req.POST['pet_type']
+            pet_breed=req.POST['pet_breed']
+            pet_price=req.POST['pet_price']
+            offer_price=req.POST['offer_price']
+            img=req.FILES['img']
+            pet_dis=req.POST['pet_dis']
+            data=Pets.objects.create(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,pet_dis=pet_dis)
+            data.save()
+            return redirect(add_pet)
+        else:
+            return render(req,'seller/addbook.html')
+    else:
+        return redirect(shop_login)
+
+# def edit_pet(req,pid):
+#     if 'pets' in req.session:
+#         if req.method=='POST':
+#             pet_id=req.POST['pet_id']
+#             pet_type=req.POST['pet_type']
+#             pet_breed=req.POST['pet_breed']
+#             pet_price=req.POST['pet_price']
+#             offer_price=req.POST['offer_price']
+#             img=req.FILES['img']
+#             pet_dis=req.POST['pet_dis']
+#             if img:
+#                 Pets.objects.filter(pk=pid).update(bk_id=bk_id,name=bk_name,ath_name=ath_name,price=bk_price,bk_genres=bk_genres,ofr_price=ofr_price,img=img,dis=bk_dis)
+#                 data=Books.objects.get(pk=pid)
+#                 data.img=img
+#                 data.save()
+#             else:
+#                 Books.objects.filter(pk=pid).update(bk_id=bk_id,name=bk_name,ath_name=ath_name,price=bk_price,bk_genres=bk_genres,ofr_price=ofr_price,dis=bk_dis)
+#             return redirect(seller_home)
+#         else:
+#             data=Books.objects.get(pk=pid)
+#             return render(req,'seller/edit.html',{'product':data})
+#     else:
+#         return redirect(bk_login) 
+
+# def dlt_bk(req,pid):
+#     data=Books.objects.get(pk=pid)
+#     url=data.img.url
+#     og_path=url.split('/')[-1]
+#     os.remove('media/'+og_path)
+#     data.delete()
+#     return redirect(seller_home) 
 
 
 
