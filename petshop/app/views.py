@@ -13,7 +13,7 @@ def shop_login(req):
         return redirect(shop_home)
     if req.method=='POST':
         uname=req.POST['uname']
-        password=req.POST['password']
+        password=req.POST['pswd']
         data=authenticate(username=uname,password=password)
         if data:
             login(req,data)
@@ -26,7 +26,7 @@ def shop_login(req):
     else:
         return render(req,'login.html')
     
-def main_logout(req):
+def shop_logout(req):
     req.session.flush()          #delete session
     logout(req)
     return redirect(shop_login)
@@ -47,12 +47,12 @@ def add_pet(req):
             pet_price=req.POST['pet_price']
             offer_price=req.POST['offer_price']
             img=req.FILES['img']
-            pet_dis=req.POST['pet_dis']
-            data=Pets.objects.create(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,pet_dis=pet_dis)
+            dis=req.POST['pet_dis']
+            data=Pets.objects.create(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,pet_dis=dis)
             data.save()
             return redirect(add_pet)
         else:
-            return render(req,'seller/addbook.html')
+            return render(req,'shop/add_pet.html')
     else:
         return redirect(shop_login)
 
