@@ -47,8 +47,8 @@ def add_pet(req):
             pet_price=req.POST['pet_price']
             offer_price=req.POST['offer_price']
             img=req.FILES['img']
-            dis=req.POST['pet_dis']
-            data=Pets.objects.create(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,pet_dis=dis)
+            dis=req.POST['dis']
+            data=Pets.objects.create(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,dis=dis)
             data.save()
             return redirect(add_pet)
         else:
@@ -56,29 +56,29 @@ def add_pet(req):
     else:
         return redirect(shop_login)
 
-# def edit_pet(req,pid):
-#     if 'pets' in req.session:
-#         if req.method=='POST':
-#             pet_id=req.POST['pet_id']
-#             pet_type=req.POST['pet_type']
-#             pet_breed=req.POST['pet_breed']
-#             pet_price=req.POST['pet_price']
-#             offer_price=req.POST['offer_price']
-#             img=req.FILES['img']
-#             pet_dis=req.POST['pet_dis']
-#             if img:
-#                 Pets.objects.filter(pk=pid).update(bk_id=bk_id,name=bk_name,ath_name=ath_name,price=bk_price,bk_genres=bk_genres,ofr_price=ofr_price,img=img,dis=bk_dis)
-#                 data=Books.objects.get(pk=pid)
-#                 data.img=img
-#                 data.save()
-#             else:
-#                 Books.objects.filter(pk=pid).update(bk_id=bk_id,name=bk_name,ath_name=ath_name,price=bk_price,bk_genres=bk_genres,ofr_price=ofr_price,dis=bk_dis)
-#             return redirect(seller_home)
-#         else:
-#             data=Books.objects.get(pk=pid)
-#             return render(req,'seller/edit.html',{'product':data})
-#     else:
-#         return redirect(bk_login) 
+def edit_pet(req,pid):
+    if 'pets' in req.session:
+        if req.method=='POST':
+            pet_id=req.POST['pet_id']
+            pet_type=req.POST['pet_type']
+            pet_breed=req.POST['pet_breed']
+            pet_price=req.POST['pet_price']
+            offer_price=req.POST['offer_price']
+            img=req.FILES['img']
+            dis=req.POST['dis']
+            if img:
+                Pets.objects.filter(pk=pid).update(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,dis=dis)
+                data=Pets.objects.get(pk=pid)
+                data.img=img
+                data.save()
+            else:
+                Pets.objects.filter(pk=pid).update(pet_id=pet_id,pet_type=pet_type,pet_breed=pet_breed,pet_price=pet_price,offer_price=offer_price,img=img,dis=dis)
+            return redirect(shop_home)
+        else:
+            data=Pets.objects.get(pk=pid)
+            return render(req,'seller/edit.html',{'product':data})
+    else:
+        return redirect(shop_login) 
 
 # def dlt_bk(req,pid):
 #     data=Books.objects.get(pk=pid)

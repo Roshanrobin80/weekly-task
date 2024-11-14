@@ -30,16 +30,16 @@
         </div>
     </nav>
 
-    <h1>shop home   </h1>
+    <h1>PETS CORNER</h1>
 
     <div class="container">
         <div class="row">
-        {% for product in products %}
+        {% for pets in pets %}
         <div class="col-lg-4">
         <div class="card">
-            <img class="card-img-top" src="{{product.img.url}}" alt="Card image" style="width:100%; height: 400px; " >
+            <img class="card-img-top" src="{{pets.img.url}}" alt="Card image" style="width:100%; height: 400px; " >
             <div class="card-body">
-                <h4 class="card-title">{{product.name}}</h4>
+                <h4 class="card-title">{{pets.name}}</h4>
                 <p class="card-text">{{product.dis}}</p>
                 <a href="edit_product/{{product.pk}}" class="btn btn-dark">Edit</a>
                 <a href="delete_product/{{product.pk}}" class="btn btn-danger">Delete</a>
