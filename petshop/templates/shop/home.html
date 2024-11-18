@@ -10,14 +10,14 @@
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Logo</a>
+            <!-- <a class="navbar-brand" href="#">Logo</a> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="shop_home ">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="add_pet">Add pet</a>
@@ -37,12 +37,12 @@
         {% for pets in pets %}
         <div class="col-lg-4">
         <div class="card">
-            <img class="card-img-top" src="{{pets.img.url}}" alt="Card image" style="width:100%; height: 400px; " >
+            <img class="card-img-top" src="{{pets.pets.img.url}}" alt="Card image" style="width:100%; height: 400px; " >
             <div class="card-body">
                 <h4 class="card-title">{{pets.name}}</h4>
-                <p class="card-text">{{product.dis}}</p>
-                <a href="edit_product/{{product.pk}}" class="btn btn-dark">Edit</a>
-                <a href="delete_product/{{product.pk}}" class="btn btn-danger">Delete</a>
+                <p class="card-text">{{pets.dis}}</p>
+                <a href="edit_product/{{pets.pk}}" class="btn btn-dark">Edit</a>
+                <a href="delete_product/{{pets.pk}}" class="btn btn-danger">Delete</a>
             </div>
             </div>
             </div>

@@ -80,7 +80,7 @@ def edit_pet(req,pid):
     else:
         return redirect(shop_login) 
 
-# def dlt_bk(req,pid):
+# def delete_pet(req,pid):
 #     data=Books.objects.get(pk=pid)
 #     url=data.img.url
 #     og_path=url.split('/')[-1]
