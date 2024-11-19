@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>userhome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success  ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="user_home">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="file_upd">Upload</a>
+              </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="gal_logout">logout</a>
+                  </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <h2 style="text-align: center;margin-top: 40px;">GALLERY VAULT</h2>
+      <p style="text-align: center;">This website helps you by saving your storage .Upload your memories here <a href="file_upd">Upload here</a>
+    </p>
+      <div class="container">
+        <div class="row">
+            <h4>Images</h4>
+            {% for i in data %}
+            <div class="col-lg-3 mt-3">
+              <div class="card">
+                <img class="card-img-top" src="{{i.img.url}}" alt="Card image" style="width:100%;height: 200px;">
+                <div class="card-body">
+                  <a href="dlt_bk/{{i.pk}}" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+            <h4>Videos</h4>
+            {% for i in data1 %}
+            <div class="col-lg-3 mt-3">
+              <div class="card">
+                <a href=""><video class="card-img-top" src="{{i.vid.url}}" alt="Card image" style="width:100%;height: 200px;"></a>
+                <div class="card-body">
+                  <a href="dlt_bk/{{i.pk}}" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+</body>
+</html>
