@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import *
 from .models import *
+import os
 
 # Create your views here.
 
@@ -88,3 +89,15 @@ def file_upd(req):
     else:
         return redirect(gal_login)
     
+def dlt_file(req,fid):
+    data=Img.objects.get(pk=fid)
+    data1=Vid.objects.get(pk=fid)
+    url=data.img.url
+    url1=data1.vid.url
+    og_path=url.split('/')[-1]
+    og_path1=url1.split('/')[-1]
+    os.remove('media/'+og_path)
+    os.remove('media/'+og_path1)
+    data.delete()
+    data1.delete()
+    return redirect(user_home)

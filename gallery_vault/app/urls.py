@@ -19,6 +19,8 @@ urlpatterns = [
 
     path('user_home',views.user_home),
     path('file_upd',views.file_upd),
+    path('dlt_file</pid>',views.dlt_file),
+
 
 
 
